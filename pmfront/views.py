@@ -1,23 +1,20 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
-from django.template import RequestContext, loader
-from tasks import fetch_pm_data
+from django.template import loader,RequestContext
 
+from pmdata.models import Data
+# Create your views here.
 
 def index(request):
     template = loader.get_template('index.html')
     context = RequestContext(request,{
-        'name':'index',
+        'name': 'index',
     })
     return HttpResponse(template.render(context))
 
-
-def fetch_data(request):
-    fetch_pm_data.delay()
-    template = loader.get_template('fetch_running.html')
+def index(request):
+    template = loader.get_template('index.html')
+    pmdatas = Data.objects.all()
     context = RequestContext(request,{
-
+        'pmdatas': pmdatas
     })
     return HttpResponse(template.render(context))
