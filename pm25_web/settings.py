@@ -69,6 +69,7 @@ MIDDLEWARE_CLASSES = (
 #Template setting
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'pmfront/templates'),
 )
 
 ROOT_URLCONF = 'pm25_web.urls'

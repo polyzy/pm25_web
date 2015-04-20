@@ -5,10 +5,40 @@
     <meta charset="UTF-8">
     <title>PM Data View</title>
     <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap-theme.min.css' %}" rel="stylesheet"/>
+
     {% block extrahead %}
     {% endblock %}
 </head>
 <body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#">首页</a>
+				</li>
+				<li>
+					<a href="#">绿色排行榜</a>
+				</li>
+				<li class="disabled">
+					<a href="#">赞助我们</a>
+				</li>
+                <li class="disabled">
+                    <a href="#">关于我们</a>
+                </li>
 
+			</ul>
+
+            {% block slider %}
+            {% endblock %}
+
+            {% block maincontent %}
+			{% endblock %}
+		</div>
+	</div>
+</div>
 </body>
 </html>
