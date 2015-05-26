@@ -2,9 +2,14 @@ from django.db import models
 
 # Create your models here.
 
+#city model
+class City(models.Model):
+    code = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
+
 #place model
 class Place(models.Model):
-    city = models.CharField(max_length=10)
+    city = models.ForeignKey(City)
     place = models.CharField(max_length=30)
 
 #grade model
