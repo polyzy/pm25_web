@@ -6,6 +6,7 @@ from django.db import models
 class City(models.Model):
     code = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
+    points = models.IntegerField(default=1)
 
 #place model
 class Place(models.Model):
