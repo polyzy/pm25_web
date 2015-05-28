@@ -10,9 +10,16 @@ def index(request):
     template = loader.get_template('index.html')
     # pmdatas = Data.objects.all()
     # places = Place.objects.all()
-    citys = City.objects.all()
+    hot_cities = City.objects.order_by('-points')[0:5]
+    city_with_dict = []
+    for i in range(65,65+26):
+        k = chr(i)
+        k_citys = City.objects.filter(code__istartswith=k)
+        if k_citys:
+            city_with_dict.append({k:k_citys})
     context = RequestContext(request, {
-        'citys': citys
+        'hot_cities':hot_cities,
+        'citys': city_with_dict
     })
     return HttpResponse(template.render(context))
 
