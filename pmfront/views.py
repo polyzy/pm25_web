@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader, RequestContext
+from django.shortcuts import  render_to_response
 
 from pmdata.models import Place, City
 
@@ -25,4 +26,14 @@ def index(request):
 
 def detail(request, city_id):
     city = City.objects.get(id=city_id)
-    return HttpResponse('City is %s' % (city.name))
+    placeset = city.place_set.all()
+    place_and_data = {}
+    for p in placeset:
+        pd = p.data_set.all()
+        if len(pd)>0:
+            place_and_data[p] = pd[0]
+    model = {
+        'city':city,
+        'places':place_and_data
+    }
+    return render_to_response('detail.html',model,context_instance=RequestContext(request))

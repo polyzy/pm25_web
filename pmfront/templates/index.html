@@ -75,7 +75,7 @@
         <tbody>
         <tr>
             {% for city in hot_cities %}
-                <td><a href="/detail/{{ city.id }}">{{ city.name }}</a></td>
+                <td><a href="/front/detail/{{ city.id }}">{{ city.name }}</a></td>
             {% endfor %}
         </tr>
         </tbody>
@@ -90,9 +90,9 @@
             {% for city in city_s|v0 %}
             {% if forloop.counter|minus:1|divisibleby:6 %}
                 </tr><tr>
-                <td><a href="/detail/{{ city.id }}">{{ city.name }}</a></td>
+                <td><a href="/front/detail/{{ city.id }}">{{ city.name }}</a></td>
             {% else %}
-                <td><a href="/detail/{{ city.id }}">{{ city.name }}</a></td>
+                <td><a href="/front/detail/{{ city.id }}">{{ city.name }}</a></td>
             {% endif %}
         {% endfor %}
         {% endfor %}

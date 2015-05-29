@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load map %}
+{% load math %}
+{% block extrahead %}
+{% endblock %}
+{% block maincontent %}
+    <table class="table table-bordered table-hover table-condensed">
+    <tr>
+        <td>观测点</td><td>AQI</td><td>空气质量指数类别</td><td>首要污染物</td><td>PM2.5细颗粒物</td>
+        <td>PM10可吸入颗粒物</td><td>CO一氧化碳</td><td>NO2二氧化氮</td><td>O3臭氧一小时平均</td>
+        <td>O3臭氧八小时平均</td><td>SO2二氧化硫</td>
+    </tr>
+    {% for place in places|ks %}
+        <tr>
+            <td>{{ place.place }}</td>
+            {% with pd=places|v4k:place %}
+                <td>{{ pd.AQI }}</td><td>{{ pd.grade.grade }}</td><td>{{ pd.pollution.pollution }}</td>
+                <td>{{ pd.pm25 }}</td><td>{{ pd.pm10 }}</td><td>{{ pd.CO }}</td>
+                <td>{{ pd.NO2 }}</td><td>{{ pd.O31 }}</td><td>{{ pd.O38 }}</td><td>{{ pd.SO2 }}</td>
+            {% endwith %}
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
