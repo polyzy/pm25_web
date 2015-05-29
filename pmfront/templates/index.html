@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load math %}
+{% load map %}
 {% block extrahead %}
     <script type="text/javascript">
 
@@ -72,18 +74,9 @@
 
         <tbody>
         <tr>
-            <td>
-                北京
-            </td>
-            <td>
-                上海
-            </td>
-            <td>
-                广州
-            </td>
-            <td>
-                武汉
-            </td>
+            {% for city in hot_cities %}
+                <td><a href="/front/detail/{{ city.id }}">{{ city.name }}</a></td>
+            {% endfor %}
         </tr>
         </tbody>
     </table>
@@ -92,13 +85,16 @@
     <table class="table table-bordered table-hover table-condensed">
 
         <tbody>
-        {% for city in citys %}
-            {% if forloop.counter|divisibleby:5 %}
+        {% for city_s in citys %}
+            <tr><td colspan="6" style=""><strong>{{ city_s|k0 }}</strong></td></tr>
+            {% for city in city_s|v0 %}
+            {% if forloop.counter|minus:1|divisibleby:6 %}
                 </tr><tr>
-                <td><a href="/detail/{{ city.id }}">{{ city.name }}</a></td>
+                <td><a href="/front/detail/{{ city.id }}">{{ city.name }}</a></td>
             {% else %}
-                <td><a href="/detail/{{ city.id }}">{{ city.name }}</a></td>
+                <td><a href="/front/detail/{{ city.id }}">{{ city.name }}</a></td>
             {% endif %}
+        {% endfor %}
         {% endfor %}
         </tbody>
     </table>

@@ -52,6 +52,7 @@ THIRD_PARTY_APPS = (
 
 PROJECT_APPS = (
     'pmdata',
+    'pmfront',
 )
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + PROJECT_APPS
