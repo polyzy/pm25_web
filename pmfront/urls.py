@@ -5,4 +5,5 @@ import views
 
 urlpatterns = patterns('',
     url(r'^detail/(?P<city_id>\d+)/$', views.detail, name='detail'),
+    url(r'^detail/fresh/$', views.fresh, name='fresh')
 )
