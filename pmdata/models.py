@@ -67,7 +67,7 @@ class Data(models.Model):
     date = models.BigIntegerField()
 
     def __unicode__(self):
-        return "观测结果%o" % self.grade
+        return "观测结果%r" % self.grade
 
     class Meta:
         verbose_name = u'具体观测数据'
