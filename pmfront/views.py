@@ -4,6 +4,8 @@ from django.shortcuts import  render_to_response
 
 from pmdata.models import Place, City
 
+import time,datetime
+
 # Create your views here.
 
 
@@ -28,8 +30,11 @@ def detail(request, city_id):
     city = City.objects.get(id=city_id)
     placeset = city.place_set.all()
     place_and_data = {}
+    tnow = datetime.datetime.now()
+    t0 = time.mktime((tnow.year,tnow.month,tnow.day,0,0,0,0,0,0))
+    print t0
     for p in placeset:
-        pd = p.data_set.all()
+        pd = p.data_set.filter(date__gt=t0).all()
         if len(pd)>0:
             place_and_data[p] = pd[0]
     model = {
@@ -37,3 +42,6 @@ def detail(request, city_id):
         'places':place_and_data
     }
     return render_to_response('detail.html',model,context_instance=RequestContext(request))
+
+def fresh(request):
+    pass

@@ -1,3 +1,4 @@
+# -*-coding:utf-8 -*-
 """
 Django settings for pm25_web project.
 
@@ -65,6 +66,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',#增加国际化支持
 )
 
 #Template setting
@@ -91,7 +93,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-cn'
 
 TIME_ZONE = 'UTC'
 
@@ -101,6 +103,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+LANGUAGES = (
+    ('en', ('English')),
+    ('zh-cn', ('中文简体')),
+)
+
+#国际化文件路径
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
