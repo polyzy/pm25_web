@@ -4201,4 +4201,6 @@ msgstr "%(verbose_name)s 已被删除。"
 #自定义的国际化资源
 msgid "Fecth PM Data"
 msgstr "拉取PM实时数据"
+msgstr "System is trying to fetch PM data now..."
+msgstr "系统正在拉取最新PM数据..."
 
