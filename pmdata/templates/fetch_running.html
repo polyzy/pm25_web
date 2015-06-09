@@ -1,1 +1,63 @@
-<h3>System is trying to fetch the pm data now...</h3>
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/jqueryui/themes/smoothness/jquery-ui.min.css" %}"/>
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "bower_components/jqueryui/jquery-ui.min.js" %}"></script>
+    <script type="text/javascript">
+        $(function(){
+            var progressbar = $("#progressbar");
+            var progressLabel = $("div.progress-label")
+            progressbar.progressbar({
+              value: false,
+              change: function() {
+                progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+              },
+              complete: function() {
+                progressLabel.text( "Complete!" );
+                  location.href = "/admin";
+              }
+            });
+
+
+
+            function progress() {
+                $.ajax({
+                  method: "POST",
+                  url: "{% url 'fetch_data' %}",
+                    async:false
+                })
+                  .done(function( data ) {
+                    alert( data );
+                  });
+              var val = progressbar.progressbar( "value" ) || 0;
+
+
+              progressbar.progressbar( "value", val + 2 );
+
+              if ( val < 99 ) {
+                setTimeout( progress, 80 );
+              }
+            }
+
+            setTimeout( progress, 2000 );
+        });
+
+    </script>
+{% endblock %}
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div>
+      <div class="progress-label">{% trans 'System is trying to fetch PM data now...' %}</div>
+      <div id="progressbar"></div>
+    </div>
+</div>
+{% endblock %}
