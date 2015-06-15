@@ -28,11 +28,12 @@ def index(request):
 
 def detail(request, city_id):
     city = City.objects.get(id=city_id)
+    city.points = city.points+1
+    city.save()
     placeset = city.place_set.all()
     place_and_data = {}
     tnow = datetime.datetime.now()
     t0 = time.mktime((tnow.year,tnow.month,tnow.day,0,0,0,0,0,0))
-    print t0
     for p in placeset:
         pd = p.data_set.filter(date__gt=t0).all()
         if len(pd)>0:
