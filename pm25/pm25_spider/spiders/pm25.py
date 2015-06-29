@@ -5,7 +5,8 @@ from scrapy.selector import HtmlXPathSelector
 from pm25_spider.items import Pm25SpiderItem
 from scrapy.http import Request
 import time
-import sys  
+import sys
+import re
 reload(sys)  
 sys.setdefaultencoding('utf8') 
 
@@ -35,7 +36,9 @@ class Pm25Spider(CrawlSpider):
             city = response.xpath("//div[@class='city_name']/h2/text()").extract()
             item['city'] = self.no_data(city)
             item['place'] = self.no_data(place)
-            #item['date'] = response.xpath("//div[@class='live_data_time]/p")
+            str_date = response.xpath("//div[@class='live_data_time']/p").extract()[0]
+            pat=re.compile("\d{4}-\d{1,2}-\d{1,2}\s+\d{1,2}:\d{1,2}:\d{1,2}")
+            item['date'] = int(time.mktime(time.strptime(pat.findall(str_date)[0],"%Y-%m-%d %H:%M:%S")))
             AQI = sel.xpath('td[2]/text()').extract()
             item['AQI']=self.no_data(AQI)
 
@@ -65,7 +68,7 @@ class Pm25Spider(CrawlSpider):
 
             SO2= sel.xpath('td[11]/text()').extract()
             item['SO2'] = int(self.no_data(SO2))
-            item['date'] = int(date)
+            #item['date'] = int(date)
             #print item['AQI'],item['grade'],item['pollution'],item['pm25'],item['pm10'],item['CO'],item['NO2'],item['O31'],item['O38'],item['SO2'],item['date'] 
             items.append(item)
 

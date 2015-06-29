@@ -27,7 +27,7 @@ def fetch_data(request):
             return HttpResponse(0)
     else:
         #将下面一行注释删除，即可在后台点击调用spider抓取数据，但是要开启Celery服务，使用命令python manage.py celery worker -B，这是开发环境直接使用db作为broker，线上环境不可
-        #pm_recent_task = fetch_pm_data.delay()
+        pm_recent_task = fetch_pm_data.delay()
         template = loader.get_template('fetch_running.html')
         context = RequestContext(request,{
 
