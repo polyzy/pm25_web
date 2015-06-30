@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+#-*- coding:utf-8 -*-
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import loader, RequestContext
 from django.shortcuts import  render_to_response
 
@@ -27,7 +28,9 @@ def index(request):
     return HttpResponse(template.render(context))
 
 def detail(request, city_id):
-    city = City.objects.get(id=city_id)
+    city = City.objects.safe_get(id=city_id)
+    if not city:
+        return HttpResponseBadRequest("非法参数")
     city.points = city.points+1
     city.save()
     placeset = city.place_set.all()

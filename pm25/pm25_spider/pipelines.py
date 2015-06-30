@@ -57,11 +57,12 @@ class Pm25SpiderPipeline(object):
         else:
             pollution = Pollution(pollution=pollution_name)
             pollution.save()
-        print 'got one record.'
         # self.cursor.execute(
         #     'insert into testdata (city,place,AQI,grade,pollution,pm25,pm10,CO,NO2,O31,O38,SO2,dt) values ("%s","%s",%s,"%s","%s",%s,%s,%s,%s,%s,%s,%s,%s); ' % (
         #     item['city'], item['place'], item['AQI'], item['grade'], item['pollution'], item['pm25'], item['pm10'],
         #     item['CO'], item['NO2'], item['O31'], item['O38'], item['SO2'], item['date']))
         # self.conn.commit()
-        data = Data(sid=place,grade=grade,AQI=int(item['AQI']),pollution=pollution,pm25=item['pm25'],pm10=item['pm10'],CO=item['CO'],NO2=item['NO2'],O31=item['O31'],O38=item['O38'],SO2=item['SO2'],date=item['date'])
-        data.save()
+        if Data.objects.filter(sid=place,date=item['date']).count()<=0:
+            print 'got a new record.'
+            data = Data(sid=place,grade=grade,AQI=int(item['AQI']),pollution=pollution,pm25=item['pm25'],pm10=item['pm10'],CO=item['CO'],NO2=item['NO2'],O31=item['O31'],O38=item['O38'],SO2=item['SO2'],date=item['date'])
+            data.save()

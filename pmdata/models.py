@@ -4,10 +4,15 @@ from django.db import models
 # Create your models here.
 
 #city model
+from pmdata.manager import ModelManager
+
+
 class City(models.Model):
     code = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
     points = models.IntegerField(default=1)
+
+    objects = ModelManager()
 
     def __unicode__(self):
         return self.name
@@ -65,6 +70,8 @@ class Data(models.Model):
     O38 = models.IntegerField()
     SO2 = models.IntegerField()
     date = models.BigIntegerField()
+
+    objects = ModelManager()
 
     def __unicode__(self):
         return "观测结果%r" % self.grade
